@@ -8,7 +8,14 @@ public enum MensagensValidacao {
     CATEG_REQUIRED("Campo categorias é obrigatório e deve conter pelo menos uma categoria"),
     METADADO_REQUIRED("Campo metadado é obrigatório"),
     TEMPOPREP_REQUIRED("Campo tempoDePreparoMinutos é obrigatório"),
-    RENDIM_REQUIRED("Campo rendimentoPorcao é obrigatório");
+    RENDIM_REQUIRED("Campo rendimentoPorcao é obrigatório"),
+    ERRO_HEADER("Receita com o nome "),
+    CRIAR_SUCESSO("Receita salva com sucesso"),
+    CRIAR_ERRO(" já foi inserida no banco de dados"),
+    ATUALIZAR_SUCESSO("Receita atualizada com sucesso"),
+    ATUALIZAR_ERRO(" não foi localizada no banco de dados para ser atualizada"),
+    DELETAR_SUCESSO("Receita deletada com sucesso"),
+    DELETAR_ERRO(" não foi localizada no banco de dados para ser deletada");
 
     private String mensagem;
 

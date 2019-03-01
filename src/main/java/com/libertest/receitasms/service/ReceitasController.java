@@ -1,5 +1,6 @@
 package com.libertest.receitasms.service;
 
+import com.libertest.receitasms.dto.MensagensValidacao;
 import com.libertest.receitasms.dto.Receita;
 import com.libertest.receitasms.handler.ReceitasHandler;
 import com.libertest.receitasms.util.JsonUtils;
@@ -15,8 +16,12 @@ import java.util.List;
 @RequestMapping(path = "/1/libertest" )
 public class ReceitasController {
 
-    @Autowired
     protected ReceitasHandler receitasHandler;
+
+    @Autowired
+    public ReceitasController(ReceitasHandler receitasHandler) {
+        this.receitasHandler = receitasHandler;
+    }
 
     @CrossOrigin
     @RequestMapping(path = "/criarReceita",  method = RequestMethod.POST)
@@ -27,7 +32,7 @@ public class ReceitasController {
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Receita salva com sucesso", HttpStatus.OK);
+        return new ResponseEntity<>(MensagensValidacao.CRIAR_SUCESSO.getMensagem(), HttpStatus.OK);
     }
 
     @CrossOrigin
@@ -47,7 +52,7 @@ public class ReceitasController {
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Receita atualizada com sucesso", HttpStatus.OK);
+        return new ResponseEntity<>(MensagensValidacao.ATUALIZAR_SUCESSO.getMensagem(), HttpStatus.OK);
 
     }
 
@@ -60,7 +65,7 @@ public class ReceitasController {
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Receita deletada com sucesso", HttpStatus.OK);
+        return new ResponseEntity<>(MensagensValidacao.DELETAR_SUCESSO.getMensagem(), HttpStatus.OK);
     }
 
 }

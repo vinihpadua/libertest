@@ -2,6 +2,8 @@ package com.libertest.receitasms.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.Objects;
+
 
 public class Metadado {
 
@@ -42,5 +44,21 @@ public class Metadado {
 
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Metadado metadado = (Metadado) o;
+        return Objects.equals(tempoDePreparoMinutos, metadado.tempoDePreparoMinutos) &&
+                Objects.equals(rendimentoPorcao, metadado.rendimentoPorcao) &&
+                Objects.equals(observacoes, metadado.observacoes);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(tempoDePreparoMinutos, rendimentoPorcao, observacoes);
     }
 }

@@ -2,6 +2,7 @@ package com.libertest.receitasms.handler;
 
 import com.libertest.receitasms.dao.ReceitaRepository;
 import com.libertest.receitasms.dto.Filtro;
+import com.libertest.receitasms.dto.MensagensValidacao;
 import com.libertest.receitasms.dto.Receita;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +15,6 @@ import java.util.List;
 
 @Service
 public class ReceitasHandler {
-
-    private static Logger log = LoggerFactory.getLogger(ReceitasHandler.class);
 
     private ReceitaRepository receitaRepository;
 
@@ -32,7 +31,7 @@ public class ReceitasHandler {
             //Caso ainda não esteja salva, insere o registro no banco
             receitaRepository.criarReceita(receita);
         } else {
-            throw new Exception("Receita com o nome " + receita.getNome() + " já foi inserida no banco de dados");
+            throw new Exception(MensagensValidacao.ERRO_HEADER.getMensagem() + receita.getNome() + MensagensValidacao.CRIAR_ERRO.getMensagem());
         }
     }
 
@@ -44,7 +43,7 @@ public class ReceitasHandler {
             //Atualiza a receita caso exista algum registro anterior com mesmo nome no banco
             receitaRepository.atualizarReceita(receita);
         } else {
-            throw new Exception("Receita com o nome " + receita.getNome() + " não foi localizada no banco de dados para ser atualizada");
+            throw new Exception(MensagensValidacao.ERRO_HEADER.getMensagem() + receita.getNome() + MensagensValidacao.ATUALIZAR_ERRO.getMensagem());
         }
     }
 
@@ -66,7 +65,7 @@ public class ReceitasHandler {
             //Deleta a receita caso exista algum registro anterior com mesmo nome no banco
             receitaRepository.deletarReceita(nomeReceita);
         } else {
-            throw new Exception("Receita com o nome " + nomeReceita + " não foi localizada no banco de dados para ser deletada");
+            throw new Exception(MensagensValidacao.ERRO_HEADER.getMensagem() + nomeReceita + MensagensValidacao.DELETAR_ERRO.getMensagem());
         }
     }
 
