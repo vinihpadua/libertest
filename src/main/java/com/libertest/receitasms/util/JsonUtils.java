@@ -1,6 +1,5 @@
 package com.libertest.receitasms.util;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.libertest.receitasms.dto.MensagensValidacao;

@@ -4,8 +4,6 @@ import com.libertest.receitasms.dao.ReceitaRepository;
 import com.libertest.receitasms.dto.Filtro;
 import com.libertest.receitasms.dto.MensagensValidacao;
 import com.libertest.receitasms.dto.Receita;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,18 +1,16 @@
 package com.libertest.service;
 
-import com.libertest.generatedsources.entity.tables.Categorias;
 import com.libertest.generatedsources.entity.tables.records.ReceitasRecord;
 import com.libertest.receitasms.dao.CategoriaRepository;
 import com.libertest.receitasms.dao.IngredienteRepository;
 import com.libertest.receitasms.dao.MetadadoRepository;
 import com.libertest.receitasms.dao.ReceitaRepository;
 import com.libertest.receitasms.dto.MensagensValidacao;
-import com.libertest.receitasms.dto.Metadado;
 import com.libertest.receitasms.dto.Receita;
 import com.libertest.receitasms.handler.ReceitasHandler;
 import com.libertest.receitasms.service.ReceitasController;
 import com.libertest.receitasms.util.JsonUtils;
-import com.mock.MockReceitas;
+import com.libertest.mock.MockReceitas;
 import org.jooq.DSLContext;
 import org.jooq.InsertResultStep;
 import org.jooq.Result;
@@ -27,16 +25,10 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.concurrent.SettableListenableFuture;
 
-import java.util.List;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 import static com.libertest.generatedsources.entity.tables.Receitas.RECEITAS;
@@ -94,56 +86,56 @@ public class ReceitasControllerTest {
 
         ResponseEntity<String> response = receitasController.criarReceita(MockReceitas.payloadValidoCriarReceita());
         assertEquals(response.getStatusCodeValue(), HttpStatus.OK.value());
-        assertEquals(response.getBody(), MensagensValidacao.CRIAR_SUCESSO.getMensagem());
+        assertEquals(MensagensValidacao.CRIAR_SUCESSO.getMensagem(), response.getBody());
     }
 
     @Test
     public void criarReceitaNomeNull() {
         ResponseEntity<String> response = receitasController.criarReceita(MockReceitas.payloadInvalidoReceitaNome());
         assertEquals(response.getStatusCodeValue(), HttpStatus.BAD_REQUEST.value());
-        assertEquals(response.getBody(), MensagensValidacao.NOME_REQUIRED.getMensagem());
+        assertEquals(MensagensValidacao.NOME_REQUIRED.getMensagem(), response.getBody());
     }
 
     @Test
     public void criarReceitaIngredientesNull() {
         ResponseEntity<String> response = receitasController.criarReceita(MockReceitas.payloadInvalidoReceitaIngredientes());
         assertEquals(response.getStatusCodeValue(), HttpStatus.BAD_REQUEST.value());
-        assertEquals(response.getBody(), MensagensValidacao.INGRED_REQUIRED.getMensagem());
+        assertEquals(MensagensValidacao.INGRED_REQUIRED.getMensagem(), response.getBody());
     }
 
     @Test
     public void criarReceitaModoPreparoNull() {
         ResponseEntity<String> response = receitasController.criarReceita(MockReceitas.payloadInvalidoReceitaModoPreparo());
         assertEquals(response.getStatusCodeValue(), HttpStatus.BAD_REQUEST.value());
-        assertEquals(response.getBody(), MensagensValidacao.MODOPREP_REQUIRED.getMensagem());
+        assertEquals(MensagensValidacao.MODOPREP_REQUIRED.getMensagem(), response.getBody());
     }
 
     @Test
     public void criarReceitaCategoriaNull() {
         ResponseEntity<String> response = receitasController.criarReceita(MockReceitas.payloadInvalidoReceitaCategorias());
         assertEquals(response.getStatusCodeValue(), HttpStatus.BAD_REQUEST.value());
-        assertEquals(response.getBody(), MensagensValidacao.CATEG_REQUIRED.getMensagem());
+        assertEquals(MensagensValidacao.CATEG_REQUIRED.getMensagem(), response.getBody());
     }
 
     @Test
     public void criarReceitaMetadadoNull() {
         ResponseEntity<String> response = receitasController.criarReceita(MockReceitas.payloadInvalidoReceitaMetadado());
         assertEquals(response.getStatusCodeValue(), HttpStatus.BAD_REQUEST.value());
-        assertEquals(response.getBody(), MensagensValidacao.METADADO_REQUIRED.getMensagem());
+        assertEquals(MensagensValidacao.METADADO_REQUIRED.getMensagem(), response.getBody());
     }
 
     @Test
     public void criarReceitaTempoPreparoNull() {
         ResponseEntity<String> response = receitasController.criarReceita(MockReceitas.payloadInvalidoReceitaTempoDePreparo());
         assertEquals(response.getStatusCodeValue(), HttpStatus.BAD_REQUEST.value());
-        assertEquals(response.getBody(), MensagensValidacao.TEMPOPREP_REQUIRED.getMensagem());
+        assertEquals(MensagensValidacao.TEMPOPREP_REQUIRED.getMensagem(), response.getBody());
     }
 
     @Test
     public void criarReceitaRendimentoNull() {
         ResponseEntity<String> response = receitasController.criarReceita(MockReceitas.payloadInvalidoReceitaRedimento());
         assertEquals(response.getStatusCodeValue(), HttpStatus.BAD_REQUEST.value());
-        assertEquals(response.getBody(), MensagensValidacao.RENDIM_REQUIRED.getMensagem());
+        assertEquals(MensagensValidacao.RENDIM_REQUIRED.getMensagem(), response.getBody());
     }
 
     private void mockInserirReceita(Receita receita) {
@@ -165,41 +157,6 @@ public class ReceitasControllerTest {
         mockInserirIngredientes(receita);
         mockInserirCategorias(receita);
     }
-
-
-    private void mockAtualizarReceita(Receita receita) {
-        final ReceitasRecord receitasRecord = new ReceitasRecord();
-        receitasRecord.setNome(receita.getNome());
-
-        BDDMockito.given(dslContext.select(RECEITAS.fields()).from(RECEITAS)
-                .where(RECEITAS.NOME.eq(receita.getNome()))
-                .fetchInto(RECEITAS)).willReturn(receitasRecords);
-
-        when(receitasRecords.get(0)).thenReturn(receitasRecord);
-
-        BDDMockito.given(dslContext.update(RECEITAS)
-                .set(RECEITAS.MODO_DE_PREPARO, receita.getModoDePreparo())
-                .where(RECEITAS.NOME.eq(receitasRecord.getNome()))
-                .execute()).willReturn(1);
-
-        // Limpa tabelas dependentes e reinsere dados atualizados
-        BDDMockito.given(dslContext.delete(METADADOS)
-                .where(METADADOS.NOME_RECEITA.eq(receitasRecord.getNome()))
-                .execute()).willReturn(1);
-
-        BDDMockito.given(dslContext.delete(INGREDIENTES)
-                .where(INGREDIENTES.NOME_RECEITA.eq(receitasRecord.getNome()))
-                .execute()).willReturn(1);
-
-        BDDMockito.given(dslContext.delete(CATEGORIAS)
-                .where(CATEGORIAS.NOME_RECEITA.eq(receitasRecord.getNome()))
-                .execute()).willReturn(1);
-
-        mockInserirMetadados(receita);
-        mockInserirIngredientes(receita);
-        mockInserirCategorias(receita);
-    }
-
 
     private void mockInserirMetadados(final Receita receita) {
         BDDMockito.given(dslContext.insertInto(
@@ -225,7 +182,6 @@ public class ReceitasControllerTest {
                     .onDuplicateKeyIgnore().execute()).willReturn(1);
         }
     }
-
 
     private void mockInserirCategorias(final Receita receita) {
         for(int i = 0; i < receita.getCategorias().size(); i++ ) {

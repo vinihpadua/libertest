@@ -85,7 +85,6 @@ public class ReceitaRepository {
         return new ArrayList<>();
     }
 
-
     private void filtrarRequisicao(Filtro filtro, SelectWhereStep select) {
         //Constroi a query dado o filtro passado como parâmetro
         if(filtro.getNome() != null && !filtro.getNome().isEmpty()) {
