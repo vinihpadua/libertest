@@ -14,14 +14,14 @@ Projeto para solução do problema apresentado para o teste. O sistema consiste 
 		-	(HttpStatus.OK) "Receita salva com sucesso";
 	-	Caso o payload sejá considerado inválido, sem algum campo obrigatório ou se a receita já exista no banco, a receita não será salva e uma mensagem de erro será retornada;
 	- 	Mensagens de erro são específicadas pelo tipo do erro: 
-	-	    (HttpStatus.BAD_REQUEST) "Campo nome é obrigatório";
-    -	    (HttpStatus.BAD_REQUEST) "Campo ingredientes é obrigatório e deve conter pelo menos um ingrediente";
-    -	    (HttpStatus.BAD_REQUEST) "Campo modoDePreparo é obrigatório";
-    -	    (HttpStatus.BAD_REQUEST) "Campo categorias é obrigatório e deve conter pelo menos uma categoria";
-    -	    (HttpStatus.BAD_REQUEST) "Campo metadado é obrigatório";
-    -	    (HttpStatus.BAD_REQUEST) "Campo tempoDePreparoMinutos é obrigatório";
-    -	    (HttpStatus.BAD_REQUEST) "Campo rendimentoPorcao é obrigatório";
-    -	    (HttpStatus.BAD_REQUEST) "Receita com o nome " + nome da receita + " já foi inserida no banco de dados";
+	    -   (HttpStatus.BAD_REQUEST) "Campo nome é obrigatório";
+        -   (HttpStatus.BAD_REQUEST) "Campo ingredientes é obrigatório e deve conter pelo menos um ingrediente";
+        -   (HttpStatus.BAD_REQUEST) "Campo modoDePreparo é obrigatório";
+        -   (HttpStatus.BAD_REQUEST) "Campo categorias é obrigatório e deve conter pelo menos uma categoria";
+        -   (HttpStatus.BAD_REQUEST) "Campo metadado é obrigatório";
+        -   (HttpStatus.BAD_REQUEST) "Campo tempoDePreparoMinutos é obrigatório";
+        -   (HttpStatus.BAD_REQUEST) "Campo rendimentoPorcao é obrigatório";
+        -   (HttpStatus.BAD_REQUEST) "Receita com o nome " + nome da receita + " já foi inserida no banco de dados";
 	- Payload de criação
 		```
 			{
@@ -48,14 +48,14 @@ Projeto para solução do problema apresentado para o teste. O sistema consiste 
     -	Caso o payload sejá considerado inválido, sem algum campo obrigatório ou se a receita não exista no banco, a receita não será atualizada e uma mensagem de erro será retornada;
 	- 	Mensagens de erro são específicadas pelo tipo do erro: 
 	
-    -       (HttpStatus.BAD_REQUEST) "Campo nome é obrigatório";
-	-	    (HttpStatus.BAD_REQUEST) "Campo ingredientes é obrigatório e deve conter pelo menos um ingrediente";
-	-	    (HttpStatus.BAD_REQUEST) "Campo modoDePreparo é obrigatório";
-	-	    (HttpStatus.BAD_REQUEST) "Campo categorias é obrigatório e deve conter pelo menos uma categoria";
-	-	    (HttpStatus.BAD_REQUEST) "Campo metadado é obrigatório";
-	-	    (HttpStatus.BAD_REQUEST) "Campo tempoDePreparoMinutos é obrigatório";
-	-	    (HttpStatus.BAD_REQUEST) "Campo rendimentoPorcao é obrigatório";
-	-	    (HttpStatus.BAD_REQUEST) "Receita com o nome " + nome da receita + " não foi localizada no banco de dados para ser atualizada"";
+        -   (HttpStatus.BAD_REQUEST) "Campo nome é obrigatório";
+	    -	(HttpStatus.BAD_REQUEST) "Campo ingredientes é obrigatório e deve conter pelo menos um ingrediente";
+	    -	(HttpStatus.BAD_REQUEST) "Campo modoDePreparo é obrigatório";
+	    -	(HttpStatus.BAD_REQUEST) "Campo categorias é obrigatório e deve conter pelo menos uma categoria";
+	    -	(HttpStatus.BAD_REQUEST) "Campo metadado é obrigatório";
+	    -	(HttpStatus.BAD_REQUEST) "Campo tempoDePreparoMinutos é obrigatório";
+	    -	(HttpStatus.BAD_REQUEST) "Campo rendimentoPorcao é obrigatório";
+	    -	(HttpStatus.BAD_REQUEST) "Receita com o nome " + nome da receita + " não foi localizada no banco de dados para ser atualizada"";
 	- Payload de atualização
 		```
 			{
@@ -85,10 +85,10 @@ Projeto para solução do problema apresentado para o teste. O sistema consiste 
     - 	Os parâmetros não são case sensitive;
     - 	Caso não recupere nenhuma receita com os parâmetros passados, retorna uma lista vazia;
     -	Exemplo de requisição completa 
-    -       /1/libertest/recuperarReceita?nomeReceita=Molho&categoria=acompanhamento&listaIngredientes=ovo,leite;
+        -   /1/libertest/recuperarReceita?nomeReceita=Molho&categoria=acompanhamento&listaIngredientes=ovo,leite;
 
     -	Exemplo de requisição 
-    -       /1/libertest/recuperarReceita?listaIngredientes=leite;
+        -   /1/libertest/recuperarReceita?listaIngredientes=leite;
     -   Resposta: 
 	```
 	    [
@@ -158,7 +158,6 @@ Projeto para solução do problema apresentado para o teste. O sistema consiste 
 ##Testes
 -	Foi utilizada a JUnit-4;
 -	Testes contemplam somente o fluxo de criação de receita;
-
     -   ReceitasControllerTest.criarReceitaValida
     -   ReceitasControllerTest.criarReceitaIngredientesNull
     -   ReceitasControllerTest.criarReceitaModoPreparoNull
